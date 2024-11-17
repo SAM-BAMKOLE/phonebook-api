@@ -9,7 +9,7 @@ load_dotenv()
 
 APP_VERSION= os.getenv('APP_VERSION') # 1.0
 BASE_ROUTE= os.getenv('BASE_ROUTE') # 'api'
-DB_NAME = os.getenv('DB_NAME') # 'database.db'
+DB_NAME = os.getenv('DATABASE_URI') # 'database.db'
 
 db = SQLAlchemy()
 jwt = JWTManager()
