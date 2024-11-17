@@ -2,10 +2,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
-from dotenv import load_env
+from dotenv import load_dotenv
 import os
 
-load_env()
+load_dotenv()
 
 APP_VERSION= os.getenv('APP_VERSION') # 1.0
 BASE_ROUTE= os.getenv('BASE_ROUTE') # 'api'
