@@ -1,5 +1,5 @@
-const API_BASE_ROUTE = "https://phonebook-api-dgus.onrender.com"
-// const API_BASE_ROUTE = "http://127.0.0.1:5000"
+const devMode = false
+const API_BASE_ROUTE = devMode ? "http://localhost:5000" : "https://phonebook-api-mrhs.onrender.com"
 
 const loginForm = document.querySelector('#login-form')
 loginForm.addEventListener('submit', (event)=>{
