@@ -1,0 +1,51 @@
+{% extends 'partials/base.html' %}
+{% block title %}Contact details{% endblock %}
+{% block main %}
+<section class="section-body">
+          <div class="hero-box">
+          </div>
+          <form method="post" id="user-details">
+          <ul>
+            <li class="">
+              <label for="firstname">firstname</label>
+              <input type="text" name="firstname" id="firstname" value="{{ contact.first_name }}" required />
+            </li>
+            <li class="">
+              <label for="lastname">lastname</label>
+              <input type="text" name="lastname" id="lastname" value="{{ contact.last_name }}" required />
+            </li>
+            <li class="">
+              <label for="email">email</label>
+              <input type="email" name="email" id="email" value="{{ contact.email }}" />
+            </li>
+            <li class="">
+              <label for="phone">phone number</label>
+              <input type="number" name="phoneNumber" id="phone" value="{{ contact.phone_number }}" required />
+            </li>
+          </ul>
+          <div class="form-btns">
+            <button type="button" id="delete">Delete</button>
+            <button>Update</button>
+          </div>
+          </form>
+        </section>
+{% endblock %}
+<script>
+  {% block script %}
+  const deleteBtn = document.querySelector("#delete")
+  
+  deleteBtn.addEventListener("click", async ()=>{
+    const response = await fetch(API_BASE_ROUTE + "/contact/{{ contact.id }}", {
+      method: "DELETE"
+    })
+    // const data = await response.json()
+    
+    if (response.ok) {
+      window.location.assign("/")
+    } else {
+      alert("Unable to delete contact")
+    }
+    // alert(data.status)
+  })
+  {% endblock %}
+</script>

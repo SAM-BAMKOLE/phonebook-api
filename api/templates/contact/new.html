@@ -1,0 +1,31 @@
+{% extends 'partials/base.html' %}
+{% block title %}Add contact{% endblock %}
+{% block main %}
+<section class="section-body">
+          <div class="hero-box">
+          </div>
+          <form method="post" id="user-details">
+          <ul>
+            <li class="">
+              <label for="firstname">firstname</label>
+              <input type="text" name="firstName" id="firstname" value="{{ contact.first_name }}" required />
+            </li>
+            <li class="">
+              <label for="lastname">lastname</label>
+              <input type="text" name="lastName" id="lastname" value="{{ contact.last_name }}" required />
+            </li>
+            <li class="">
+              <label for="email">email</label>
+              <input type="email" name="email" id="email" value="{{ contact.email }}" />
+            </li>
+            <li class="">
+              <label for="phone">phone number</label>
+              <input type="number" name="phoneNumber" id="phone" value="{{ contact.phone_number }}" required />
+            </li>
+          </ul>
+          <div class="form-btns">
+            <button>Create</button>
+          </div>
+          </form>
+        </section>
+{% endblock %}

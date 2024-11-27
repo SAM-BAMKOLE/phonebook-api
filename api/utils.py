@@ -15,3 +15,10 @@ def snake_to_camel(snake_str):
 def camel_to_snake(camel_str):
     # Insert an underscore before each uppercase letter, then convert to lowercase
     return re.sub(r'(?<!^)(?=[A-Z])', '_', camel_str).lower()
+    
+def check_empty_field(**kwargs):
+  for key, value in kwargs.items():
+    if not value or value is None:
+      return False
+  
+  return True

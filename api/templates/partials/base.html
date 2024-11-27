@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Contact List App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css" media="all" />
+  </head>
+  <body>
+      <div class="container">
+        <nav>
+            <a href="/">
+          <span class="flex">
+            <img src="{{ url_for('static', filename='images/telephone-call.png') }}" alt="" />
+            <p>MyPhonebook</p>
+          </span>
+            </a>
+          <div class="menu">
+            <img src="{{ url_for('static', filename='images/menu.png') }}" alt="menu icon" />
+          </div>
+          <div class="nav-list hidden" id="nav-list">
+            <ul>
+              <li><a href="{{ url_for('user.get_user') }}">User Profile</a></li>
+                <li><form action="{{ url_for('auth.logout') }}" method="post">
+                  <button id="logout">Logout</button>
+                  </form>
+                </li>
+            </ul>
+          </div>
+        </nav>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        {% if category == "error" %}
+        <div id="alert" class="alert alert-error">
+          <p>{{ message }}</p>
+          <button id="remove-alert" onclick="removeAlert()">x</button>
+        </div>
+        {% else %}
+        <div id="alert" class="alert alert-success">
+          <p>{{ message }}</p>
+          <button id="remove-alert" onclick="removeAlert()">x</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block main %}{% endblock %}
+      </div>
+      
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
+      <script>{% block script %}{% endblock %}</script>
+      <!-- 
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  </body>
+</html>

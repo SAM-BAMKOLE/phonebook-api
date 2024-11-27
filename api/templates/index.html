@@ -1,0 +1,76 @@
+{% extends 'partials/base.html' %}
+{% block title %}{% endblock %}
+{% block main %}
+        <div class="hero">
+          <h1>{{ user.first_name }}'s Contact list</h1>
+          <div class="link">
+            <a href="{{ url_for('contact.add_contact') }}">New Contact</a>
+          </div>
+        </div>
+<main>
+    <section class="search">
+        <input
+            type="search"
+            name="search"
+            id="name"
+            placeholder="Search contact by name.."
+        />
+        <!-- <button type="submit">&check;</button> -->
+    </section>
+    <section class="contacts">
+        <h2 class="header">Contact list</h2>
+        {% if contacts|length > 0 : %}
+        <ul id="contact-list">
+          {% for contact in contacts : %}
+                <li>
+            <a href="{{ url_for('contact.get_contact', contact_id=contact.id) }}">
+                    <img src="{{ url_for('static', filename='images/user2.png') }}" alt="" />
+                    <div class="content">
+                        <p class="name">{{ contact.first_name }} {{ contact.last_name }}</p>
+                        <p class="number">{{ contact.phone_number }}</p>
+                    </div>
+            </a>
+                </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-contact">You don't have any contact</p>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}
+<script>
+{% block script %}
+const search = document.querySelector("input[name='search']")
+  const contactList = document.getElementById("contact-list")
+  
+  async function searchKeyword (){
+    try {
+    
+    const searchValue = search.value
+    
+    const response = await fetch(API_BASE_ROUTE+`/contact/filter?search=${searchValue}`)
+    
+    const data = await response.json()
+    contactList.innerHTML = ""
+    
+    data.contacts.forEach(list => {
+      contactList.insertAdjacentHTML("beforeend", `<li>
+            <a href="/contact/${list.id}">
+                    <img src="{{ url_for('static', filename='images/user2.png') }}" alt="" />
+                    <div class="content">
+                        <p class="name">${list.firstName} ${list.lastName}</p>
+                        <p class="number">${list.phoneNumber}</p>
+                    </div>
+            </a>
+                </li>`)
+    })
+    } catch(e) {
+      // alert(e.message)
+    }
+  }
+  
+  search.addEventListener("input", searchKeyword)
+
+{% endblock %}
+</script>

@@ -1,0 +1,16 @@
+{% extends "partials/auth-base.html" %}
+{% block title %}Login to MyPhonebook{% endblock %}
+{% block main %}
+<div class="container pad-10">
+      <main class="auth">
+        <h1>Login to MyPhonebook</h1>
+        <pre id="pre"></pre>
+        <form id="login-form" method="post">
+          <input type="text" name="email" placeholder="Your email.." value="{{ email }}" required />
+          <input type="password" name="password" placeholder="Your password.." value="{{ password }}" required />
+          <button>Login</button>
+        </form>
+        <p>Don't have an account yet? <a href="{{ url_for('auth.register') }}">Register</a></p>
+      </main>
+    </div>
+{% endblock  %}

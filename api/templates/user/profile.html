@@ -1,0 +1,56 @@
+{% extends 'partials/base.html' %}
+{% block title %}User details{% endblock %}
+{% block main %}
+<section class="section-body">
+          <div class="hero-box">
+          </div>
+          <form method="post" id="user-details">
+          <ul>
+            <li class="">
+              <label for="firstname">firstname</label>
+              <input type="text" name="firstName" id="firstname" value="{{ user.first_name }}" required />
+            </li>
+            <li class="">
+              <label for="lastname">lastname</label>
+              <input type="text" name="lastName" id="lastname" value="{{ user.last_name }}" required />
+            </li>
+            <li class="">
+              <label for="email">email</label>
+              <input type="email" name="email" id="email" value="{{ user.email }}" required />
+            </li>
+          </ul>
+          <div class="form-btns">
+            <button type="button" id="delete">Delete account</button>
+            <button>Update</button>
+          </div>
+          </form>
+        </section>
+        <div class="overlay toggle-hidden">
+          <div class="card">
+            <h3>We're sad to see you go!</h3>
+            <p>Please confirm your password to delete your account.</p>
+            <form id="delete-form" action="{{ url_for('user.delete_account') }}" method="post">
+            <input type="password" name="password" />
+            </form>
+            <div class="flex">
+               <button id="cancel">Cancel</button> 
+              <button form="delete-form" id="delete-account">Delete account</button>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+<script>
+  {% block script %}
+  const deleteBtn = document.querySelector("#delete")
+  const overlay = document.querySelector('.overlay')
+  const cancelBtn = document.querySelector("#cancel")
+  
+  deleteBtn.addEventListener("click", ()=>{
+    overlay.classList.toggle("toggle-hidden")
+  })
+  cancelBtn.addEventListener("click", ()=>{
+    overlay.classList.add("toggle-hidden")
+  })
+  
+  {% endblock %}
+</script>
