@@ -19,8 +19,8 @@ login_manager = LoginManager()
 def init_app():
   app = Flask(__name__)
   app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-  app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + DB_NAME
-  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+  app.config['SQLALCHEMY_DATABASE_URI'] = DB_NAME if os.getenv('FLASK_ENV') == 'production' else "sqlite:///database.db"
+  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =  False
   """
   app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
   app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)
@@ -56,6 +56,6 @@ def init_app():
   return app
   
 def create_db():
-  if not os.path.exists('api/'+DB_NAME):
+  if os.getenv("FLASK_ENV") !=  "production" and not os.path.exists('api/'+DB_NAME):
     db.create_all()
     print('Database created')
